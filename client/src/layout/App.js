@@ -5,7 +5,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import Auth from "../components/Auth/Auth";
 import { useEffect, useState } from "react";
 import { Container } from '@mui/material';
-import Image from '../components/Image/Image';
 import Customers from '../components/Customers/Customers';
 import Navbar from './Navbar/Navbar';
 
@@ -23,7 +22,6 @@ function App() {
                 <Navbar handleDrawerOpen={handleDrawerOpen} open={open} />
                 <Routes>
                     <Route path='/' element={<Customers />} />
-                    <Route path='/image' element={<Image />} />
                     <Route path='/auth' element={<Auth />} />
                 </Routes>
             </Container>

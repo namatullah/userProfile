@@ -3,7 +3,6 @@ import mongoose from "mongoose";
 const customerSchema = mongoose.Schema({
     fullname: String,
     email: String,
-    selectedFile: String,
     createdAt: {
         type: Date,
         default: new Date()

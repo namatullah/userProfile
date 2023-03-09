@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import CropIcon from '@mui/icons-material/Crop';
 import {
     Paper,
     TableContainer,
@@ -17,12 +16,10 @@ import {
     CircularProgress,
     Tooltip, Alert, Avatar
 } from "@mui/material";
-import Typography from "@mui/material/Typography";
 import useStyles from './styles'
 import Form from "./Form";
 import { deleteCustomer, getCustomers } from "../../actions/customer";
 import DeleteDialog from "../DeleteDialog/DeleteDialog";
-import CropEasy from '../Crop/CropEasy'
 
 const Customers = () => {
     const { t } = useTranslation();
@@ -79,7 +76,7 @@ const Customers = () => {
             <Table aria-label="simple table">
                 <TableHead>
                     <TableRow>
-                        <TableCell align="left" colSpan={5}>
+                        <TableCell align="left" colSpan={4}>
                             <Tooltip title={t('add')} arrow placement="left">
                                 <AddIcon color="primary" onClick={openForm} />
                             </Tooltip>
@@ -87,7 +84,6 @@ const Customers = () => {
                     </TableRow>
                     <TableRow>
                         <TableCell style={{ fontWeight: 'bold' }} align="left">{t('index')}</TableCell>
-                        <TableCell style={{ fontWeight: 'bold' }} align="left">{t('profile')}</TableCell>
                         <TableCell style={{ fontWeight: 'bold' }} align="left">{t('fullname')}</TableCell>
                         <TableCell style={{ fontWeight: 'bold' }} align="left">{t('email')}</TableCell>
                         <TableCell style={{ fontWeight: 'bold' }} align="left">{t('action')}</TableCell>
@@ -105,13 +101,6 @@ const Customers = () => {
                             {customers.length > 0 ? (
                                 customers.map((customer, index) => (<TableRow key={customer._id}>
                                     <TableCell align="left">{index + 1}</TableCell>
-                                    <TableCell align="left">
-                                        <div style={{ display: 'flex' }}>
-                                            <Avatar sx={{ width: 32, height: 32 }} alt={customer.fullname} src={customer.image}>
-                                                {customer.fullname.charAt(0)}
-                                            </Avatar>
-                                        </div>
-                                    </TableCell>
                                     <TableCell align="left">{customer.fullname}</TableCell>
                                     <TableCell align="left">{customer.email}</TableCell>
                                     <TableCell align="left">

@@ -5,7 +5,7 @@ const userSchema = mongoose.Schema({
     lastName: {type: String, required: true},
     email: {type: String, required: true, unique: true},
     password: {type: String, required: true},
-    selectedFile: String,
+    image: String,
     createdAt: {
         type: Date,
         default: new Date()
