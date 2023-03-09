@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import {
+    Avatar,
     Button,
     Dialog,
     DialogActions,
@@ -10,7 +11,6 @@ import {
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { createCustomer } from "../../actions/customer";
-import ImageCrop from './ImageCrop/ImageCrop';
 import CropEasy from '../Crop/CropEasy';
 
 const Form = ({ open, closeForm, customerId }) => {
@@ -22,6 +22,7 @@ const Form = ({ open, closeForm, customerId }) => {
     const [image, setImage] = useState('');
     const [photoUrl, setPhotoUrl] = useState('');
     const [openCrop, setOpenCrop] = useState(false);
+    const [croppedImage, setCroppedImage] = useState(null);
 
     const handleChange = (e) => {
         const file = e.target.files[0];
@@ -31,7 +32,8 @@ const Form = ({ open, closeForm, customerId }) => {
             setOpenCrop(true)
         }
     }
-
+    console.log('name:', fullname)
+    console.log('croped:', croppedImage)
     const [error, setError] = useState({ fullname: false, surname: false });
     const [helperText, setHelperText] = useState({ fullname: '', surname: '', image: t('select_profile_picture') });
 
@@ -47,9 +49,11 @@ const Form = ({ open, closeForm, customerId }) => {
         setImage('')
         closeForm()
     }
+    console.log(photoUrl)
+    console.log(image)
     return (
         openCrop ? (
-            <CropEasy {...{ photoUrl, setOpenCrop }} />
+            <CropEasy {...{ photoUrl, setOpenCrop, setPhotoUrl, setImage, setCroppedImage, croppedImage }} />
         ) : (
             <Dialog open={open} fullWidth>
                 <form onSubmit={handleSubmit}>
@@ -75,16 +79,15 @@ const Form = ({ open, closeForm, customerId }) => {
                             helperText={helperText.surname}
                             onChange={(e) => setSurname(e.target.value)}
                         />
-                        <label htmlFor='profilePhoto'>
-                            <input
-                                accept='image/*'
-                                id='profilePhoto'
-                                type="file"
-                                name='image'
-                                value={image}
-                                onChange={handleChange}
-                            />
-                        </label>
+                        <input
+                            accept='image/*'
+                            id='profilePhoto'
+                            type="file"
+                            name='image'
+                            value={image}
+                            onChange={handleChange}
+                        />
+                        <Avatar src={photoUrl} sx={{ width: 75, height: 75, cursor: 'pointer' }} />
                     </DialogContent>
                     <DialogActions style={{ padding: '0 25px 20px 20px' }}>
                         <Button variant="contained" size="small" type="submit">{customerId ? t('edit') : t('add')}</Button>
@@ -93,7 +96,6 @@ const Form = ({ open, closeForm, customerId }) => {
                 </form>
             </Dialog>
         )
-
     )
 }
 export default Form

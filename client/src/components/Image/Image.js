@@ -23,6 +23,7 @@ const Image = () => {
         setSelectedCar(null);
     }
     const setCroppedImageFor = (id, crop, zoom, aspect, croppedImageUrl) => {
+        console.log('CROP',croppedImageUrl)
         const newCarsList = [...cars];
         const carIndex = cars.findIndex(x => x.id === id);
         const car = cars[carIndex];
@@ -31,7 +32,7 @@ const Image = () => {
         setCars(newCarsList);
         setSelectedCar(null);
     }
-
+    console.log('CS:',cars)
     return (
         <div className='imageCard'>
             {

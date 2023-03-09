@@ -41,6 +41,7 @@ const ImageCropDialog = ({ id, imageUrl, cropInit, zoomInit, aspectInit, onCance
     }
     const onCrop = async () => {
         const croppedImageUrl = await getCroppedImg(imageUrl, croppedAreaPixels);
+        console.log(croppedImageUrl)
         setCroppedImageFor(id, crop, zoom, aspect, croppedImageUrl);
     }
     return (
@@ -75,7 +76,6 @@ const ImageCropDialog = ({ id, imageUrl, cropInit, zoomInit, aspectInit, onCance
                         </div>
                     </div>
                 </div>
-
             </DialogContent>
         </Dialog>
     )

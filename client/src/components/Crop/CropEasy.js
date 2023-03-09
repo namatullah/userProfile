@@ -2,8 +2,9 @@ import { Button, Dialog, DialogActions, DialogContent, Slider, Typography } from
 import { Box } from '@mui/system'
 import React, { useState } from 'react'
 import Cropper from 'react-easy-crop'
+import getCroppedImg from './utils/cropImage';
 
-const CropEasy = ({ photoUrl, setOpenCrop }) => {
+const CropEasy = ({ photoUrl, setOpenCrop, setPhotoUrl, setImage, setCroppedImage, croppedImage }) => {
   const [crop, setCrop] = useState({ x: 0, y: 0 })
   const [zoom, setZoom] = useState(1)
   let aspect = 4 / 4;
@@ -13,9 +14,12 @@ const CropEasy = ({ photoUrl, setOpenCrop }) => {
     setCroppedAreaPixels(croppedAreaPixels)
   }
   const cropImage = async () => {
-
+    const croppedPhoto = await getCroppedImg(photoUrl, croppedAreaPixels, rotation);
+    setCroppedImage(croppedPhoto);
   }
-
+  const onHandleCrop = () => {
+    setOpenCrop(false)
+  }
   return (
     <>
       <Dialog open={true} fullWidth>
@@ -76,6 +80,15 @@ const CropEasy = ({ photoUrl, setOpenCrop }) => {
             >
               Crop
             </Button>
+            <Button
+              variant='contained'
+              onClick={onHandleCrop}
+            >
+              Done
+            </Button>
+          </Box>
+          <Box sx={{ display: 'flex', flexWrap: 'wrap' }} border="1px">
+            <img src={croppedImage ? croppedImage : photoUrl} alt="" />
           </Box>
 
         </DialogActions>

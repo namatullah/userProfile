@@ -24,9 +24,7 @@ import DeleteDialog from "../DeleteDialog/DeleteDialog";
 
 const Customers = () => {
     const { t } = useTranslation();
-
     const classes = useStyles()
-
     const dispatch = useDispatch();
     const { customers, isLoading } = useSelector((state) => state.customers);
     const [open, setOpen] = useState(false);
@@ -71,7 +69,7 @@ const Customers = () => {
             openDelete={openDelete}
             handleCloseDelete={handleCloseDelete}
             deleteItem={deleteCustomer}
-            deletedObj={{id: customerId}}
+            deletedObj={{ id: customerId }}
             title={t('delete_title')}
             description={t('delete_sub_title')}
         />)}
