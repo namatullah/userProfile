@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const customerSchema = mongoose.Schema({
     fullname: String,
-    surname: String,
+    email: String,
     selectedFile: String,
     createdAt: {
         type: Date,

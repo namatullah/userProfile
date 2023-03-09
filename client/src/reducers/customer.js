@@ -19,6 +19,7 @@ const customers = (state = { isLoading: true, customers: [] }, action) => {
                 customers: action.payload.data,
             };
         case ADD_CUSTOMER:
+            console.log(action.payload)
             return { ...state, customers: [...state.customers, action.payload] };
         case EDIT_CUSTOMER:
             return {

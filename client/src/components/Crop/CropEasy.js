@@ -4,25 +4,35 @@ import React, { useState } from 'react'
 import Cropper from 'react-easy-crop'
 import getCroppedImg from './utils/cropImage';
 
-const CropEasy = ({ photoUrl, setOpenCrop, setPhotoUrl, setImage, setCroppedImage, croppedImage }) => {
+const CropEasy = ({ image, setImage, setOpenCrop, openCrop, closeCrop }) => {
+
   const [crop, setCrop] = useState({ x: 0, y: 0 })
   const [zoom, setZoom] = useState(1)
+  const [croppedImage, setCroppedImage] = useState(null)
   let aspect = 4 / 4;
   const [rotation, setRotation] = useState(0)
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null)
   const cropComplete = (croppedArea, croppedAreaPixels) => {
     setCroppedAreaPixels(croppedAreaPixels)
   }
+
   const cropImage = async () => {
-    const croppedPhoto = await getCroppedImg(photoUrl, croppedAreaPixels, rotation);
+    const croppedPhoto = await getCroppedImg(image, croppedAreaPixels, rotation);
     setCroppedImage(croppedPhoto);
   }
   const onHandleCrop = () => {
-    setOpenCrop(false)
+    closeCrop()
+  }
+  const handleChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setImage(URL.createObjectURL(file));
+      setOpenCrop(true)
+    }
   }
   return (
     <>
-      <Dialog open={true} fullWidth>
+      <Dialog open={openCrop} fullWidth>
         <DialogContent dividers
           sx={{
             background: '#333',
@@ -33,7 +43,7 @@ const CropEasy = ({ photoUrl, setOpenCrop, setPhotoUrl, setImage, setCroppedImag
           }}
         >
           <Cropper
-            image={photoUrl}
+            image={image}
             crop={crop}
             zoom={zoom}
             rotation={rotation}
@@ -46,6 +56,14 @@ const CropEasy = ({ photoUrl, setOpenCrop, setPhotoUrl, setImage, setCroppedImag
         </DialogContent>
         <DialogActions sx={{ flexDirection: "column", mx: 3, my: 2 }}>
           <Box sx={{ width: "100%", mb: 1 }}>
+            <input
+              accept='image/*'
+              id='profilePhoto'
+              type="file"
+              name='image'
+              value={image}
+              onChange={handleChange}
+            />
             <Typography>Zoom:{zoomPercent(zoom)}</Typography>
             <Slider
               valueLabelDisplay='auto'
@@ -88,7 +106,7 @@ const CropEasy = ({ photoUrl, setOpenCrop, setPhotoUrl, setImage, setCroppedImag
             </Button>
           </Box>
           <Box sx={{ display: 'flex', flexWrap: 'wrap' }} border="1px">
-            <img src={croppedImage ? croppedImage : photoUrl} alt="" />
+            <img src={image} alt="" />
           </Box>
 
         </DialogActions>

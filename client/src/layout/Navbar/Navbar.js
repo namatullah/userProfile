@@ -13,9 +13,8 @@ const Navbar = () => {
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                        <Typography component={Link} to="/" variant='h2' color='white' align='center'>Memories</Typography>
+                        <Typography component={Link} to="/" variant='h4' color='white' align='center'>Customers</Typography>
                     </Box>
-
                     <AccountMenu />
                 </Toolbar>
             </Container>

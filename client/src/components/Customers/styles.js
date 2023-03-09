@@ -14,5 +14,10 @@ export default makeStyles(() => ({
     },
     tableMargin: {
         // padding: '10px'
+    },
+    cropIcon: {
+        marginLeft: '10px',
+        marginTop: '6px',
+        
     }
 }));

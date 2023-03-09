@@ -18,9 +18,9 @@ export const createCustomer = async (req, res) => {
     const newCustomer = new Customer({ ...customer, createdAt: new Date().toISOString() });
     try {
         await newCustomer.save();
-        res.status(201).json({ responseMessage: { type: SUCCESS, message: "Question successfully created" }, newQuestion });
+        res.status(201).json({ responseMessage: { type: SUCCESS, message: "Customer successfully created" }, newCustomer });
     } catch (error) {
-        res.status(409).json({ responseMessage: { type: ERROR, message: 'Question is not created, try again' } });
+        res.status(409).json({ responseMessage: { type: ERROR, message: 'Customer is not created, try again' } });
     }
 }
 export const updateCustomer = async (req, res) => {
@@ -29,16 +29,16 @@ export const updateCustomer = async (req, res) => {
     try {
         const updatedCustomer = await Customer.findByIdAndUpdate(id, customer, { new: true });
         res.status(201).json({
-            responseMessage: { type: SUCCESS, message: "Question successfully updated" },
+            responseMessage: { type: SUCCESS, message: "Customer successfully updated" },
             updatedCustomer
         });
     } catch (error) {
-        res.status(409).json({ responseMessage: { type: ERROR, message: 'Question is not created, try again' } });
+        res.status(409).json({ responseMessage: { type: ERROR, message: 'Customer is not created, try again' } });
     }
 
 }
 export const deleteCustomer = async (req, res) => {
     const { id } = req.params;
     await Customer.findByIdAndDelete(id);
-    res.status(200).json({ responseMessage: { type: SUCCESS, message: "Question successfully deleted" } });
+    res.status(200).json({ responseMessage: { type: SUCCESS, message: "Customer successfully deleted" } });
 }
