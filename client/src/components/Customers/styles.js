@@ -2,7 +2,6 @@ import { makeStyles } from "@mui/styles";
 export default makeStyles(() => ({
     header: {
         display: 'flex',
-        justifyContent: 'space-between',
     },
     tableHeadRow: {
         fontWeight: 'bold'

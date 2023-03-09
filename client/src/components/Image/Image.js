@@ -51,7 +51,7 @@ const Image = () => {
             {cars.map((car) => (
                 <div key={car.id}>
                     <img
-                        src={car.croppedImageUrl ? car.croppedImageUrl : car.imageUrl}
+                        src={car.croppedImageUrl ? car.croppedImageUrl:  car.imageUrl}
                         alt=""
                         onClick={() => setSelectedCar(car)}
                     />

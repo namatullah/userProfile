@@ -29,6 +29,10 @@ export const English = {
     customer: 'Customer',
     fullname:'Full name',
     surname: 'Surname',
+    customers: 'Customers',
     select_profile_picture : 'Select profile picture',
+    delete_title: 'Are you sure to delete this customer?',
+    delete_sub_title: "After deletion, all related data of this customer will be deleted too",
+
 
 }

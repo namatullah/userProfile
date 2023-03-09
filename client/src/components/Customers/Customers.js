@@ -18,8 +18,8 @@ import {
 } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import useStyles from './styles'
-import { deleteQuestion, getCustomers, getQuestions } from "../../actions/customer";
 import Form from "./Form";
+import { deleteCustomer, getCustomers } from "../../actions/customer";
 import DeleteDialog from "../DeleteDialog/DeleteDialog";
 
 const Customers = () => {
@@ -28,71 +28,69 @@ const Customers = () => {
     const classes = useStyles()
 
     const dispatch = useDispatch();
-    const { questions, isLoading } = useSelector((state) => state.customers);
+    const { customers, isLoading } = useSelector((state) => state.customers);
     const [open, setOpen] = useState(false);
     const [openDelete, setOpenDelete] = useState(false);
-    const [questionId, setQuestionId] = useState(null);
+    const [customerId, setCustomerId] = useState(null);
     const openForm = () => {
         setOpen(true);
     };
     const closeForm = (event, reason) => {
         if (reason && reason === "backdropClick") return;
-        setQuestionId(null)
+        setCustomerId(null)
         setOpen(false);
     };
     const handleEdit = (id) => {
-        setQuestionId(id)
+        setCustomerId(id)
         openForm()
     }
 
     const handleOpenDelete = (id) => {
-        setQuestionId(id)
+        setCustomerId(id)
         setOpenDelete(true);
     };
     const handleCloseDelete = (event, reason) => {
         if (reason && reason === "backdropClick") return;
-        setQuestionId(null)
+        setCustomerId(null)
         setOpenDelete(false);
     };
-
 
     useEffect(() => {
         dispatch(getCustomers());
     }, []);
 
-    if (!questions) return null;
+    if (!customers) return null;
 
     return (<>
         {open && (<Form
             open={open}
             closeForm={closeForm}
-            questionId={questionId}
+            customerId={customerId}
         />)}
-        {/* {openDelete && (<DeleteDialog
+        {openDelete && (<DeleteDialog
             openDelete={openDelete}
             handleCloseDelete={handleCloseDelete}
-            deleteItem={deleteQuestion}
-            deletedObj={{ id: questionId }}
-            title={t('are_you_sure_to_delete_this_category')}
-            description={t('after_deletion_you_can_not_see_this_category_and_sub_categories')}
-        />)} */}
+            deleteItem={deleteCustomer}
+            deletedObj={{id: customerId}}
+            title={t('delete_title')}
+            description={t('delete_sub_title')}
+        />)}
         <TableContainer component={Paper} raised="true" elevation={6} className={classes.tableMargin}>
             <Table aria-label="simple table">
                 <TableHead>
                     <TableRow>
-                        <TableCell align="left" colSpan={3}>
-                            <div className={classes.header}>
-                                <Typography variant="subtitle1" gutterBottom>{t('questionCategories')}</Typography>
-                                <Tooltip title={t('add')} arrow placement="left">
-                                    <AddIcon color="primary" onClick={openForm} />
-                                </Tooltip>
-                            </div>
+                        <TableCell align="left" colSpan={5}>
+                            <Tooltip title={t('add')} arrow placement="left">
+                                <AddIcon color="primary" onClick={openForm} />
+                            </Tooltip>
                         </TableCell>
                     </TableRow>
                     <TableRow>
                         <TableCell style={{ fontWeight: 'bold' }} align="left">{t('index')}</TableCell>
-                        <TableCell style={{ fontWeight: 'bold' }} align="left">{t('categories')}</TableCell>
-                        <TableCell style={{ fontWeight: 'bold' }} align="left">{t('actions')}</TableCell>
+                        <TableCell style={{ fontWeight: 'bold' }} align="left">{t('photo')}</TableCell>
+                        <TableCell style={{ fontWeight: 'bold' }} align="left">{t('fullname')}</TableCell>
+                        <TableCell style={{ fontWeight: 'bold' }} align="left">{t('surname')}</TableCell>
+                        <TableCell style={{ fontWeight: 'bold' }} align="left">{t('action')}</TableCell>
                     </TableRow>
                 </TableHead>
                 {isLoading ? (<TableBody>
@@ -104,18 +102,19 @@ const Customers = () => {
                 </TableBody>) : (
                     <>
                         <TableBody>
-                            {questions.length > 0 ? (
-                                questions.map((question, index) => (<TableRow key={question._id}>
+                            {customers.length > 0 ? (
+                                customers.map((customer, index) => (<TableRow key={customer._id}>
                                     <TableCell align="left">{index + 1}</TableCell>
-                                    <TableCell align="left">{question.subCategory.name}</TableCell>
-                                    <TableCell align="left">{question.question}</TableCell>
+                                    <TableCell align="left">{customer.fullname}</TableCell>
+                                    <TableCell align="left">{customer.fullname}</TableCell>
+                                    <TableCell align="left">{customer.surname}</TableCell>
                                     <TableCell align="left">
                                         <Tooltip title={t('edit')} arrow placement="top">
                                             <EditIcon
                                                 color="primary"
                                                 fontSize="small"
                                                 className={classes.marginRight_8}
-                                                onClick={() => handleEdit(question._id)}
+                                                onClick={() => handleEdit(customer._id)}
                                             />
                                         </Tooltip>
 
@@ -124,7 +123,7 @@ const Customers = () => {
                                                 color="error"
                                                 fontSize="small"
                                                 className={classes.marginRight_8}
-                                                onClick={() => handleOpenDelete(question._id)}
+                                                onClick={() => handleOpenDelete(customer._id)}
                                             />
                                         </Tooltip>
 
